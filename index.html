@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta para mi Amor</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to top right, #ffd6e0, #ffe8ec);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: #f3a5c4;
+      border: 2px solid #d17899;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: #f8c8dc;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 1s ease;
+      z-index: 3;
+      border-bottom: 2px solid #d17899;
+    }
+
+    .paper {
+      position: absolute;
+      bottom: -100%;
+      left: 10%;
+      width: 80%;
+      height: 70%;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      font-weight: bold;
+      font-size: clamp(16px, 2.2vw, 24px);
+      line-height: 1.5;
+      color: #d1005d;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: bottom 1s ease;
+      z-index: 2;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 18px;
+      background-color: #ff5f8a;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e24872;
+    }
+
+    .open .flap {
+      transform: rotateX(-120deg);
+    }
+
+    .open .paper {
+      bottom: 10%;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff5f8a;
+      transform: rotate(-45deg);
+      animation: floatUp 4s linear infinite;
+      opacity: 0;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff5f8a;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: 10px;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(-45deg) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-150px) rotate(-45deg) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .show-hearts .heart {
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .paper {
+        font-size: 16px;
+        height: 80%;
+        left: 5%;
+        width: 90%;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <div class="envelope" id="envelope">
+      <div class="flap" id="flap"></div>
+      <div class="paper" id="paper">
+        ❤️ TE AMO MUCHO MI AMOR ❤️<br />
+        Mi mundo era blanco y negro hasta que llegaste tú con todos tus colores alegrando todos mis dias<br>
+        AMO TENERTE EN MI VIDA <br><br>
+
+        TE EXTRAÑO MUCHO MI AMOR ❤️
+      </div>
+    </div>
+    <button onclick="toggleEnvelope()" id="toggleBtn">Abrir carta</button>
+  </div>
+
+  <!-- Corazones flotantes -->
+  <div class="heart" style="left: 10%; animation-delay: 0s;"></div>
+  <div class="heart" style="left: 30%; animation-delay: 1s;"></div>
+  <div class="heart" style="left: 60%; animation-delay: 0.5s;"></div>
+  <div class="heart" style="left: 85%; animation-delay: 1.5s;"></div>
+
+  <script>
+    let isOpen = false;
+
+    function toggleEnvelope() {
+      const envelope = document.getElementById("envelope");
+      const container = document.getElementById("container");
+      const button = document.getElementById("toggleBtn");
+
+      isOpen = !isOpen;
+
+      if (isOpen) {
+        envelope.classList.add("open");
+        container.classList.add("show-hearts");
+        button.textContent = "Cerrar carta";
+      } else {
+        envelope.classList.remove("open");
+        container.classList.remove("show-hearts");
+        button.textContent = "Abrir carta";
+      }
+    }
+  </script>
+</body>
+</html>
